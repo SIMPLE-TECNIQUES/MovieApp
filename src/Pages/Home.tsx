@@ -4,7 +4,7 @@ import { setSearchResults, setError } from '../Redux/MovieSlice';
 import Navbar from '../Components/Navbar';
 import MovieCard from '../Components/MovieCard';
 import { searchMovies } from '../Redux/Api';
-import SideBar from '../Components/SideBar';
+import SideBar from '../Components/Sidebar';
 import { RootState } from '../Redux/store'; 
 
 interface Movie {
