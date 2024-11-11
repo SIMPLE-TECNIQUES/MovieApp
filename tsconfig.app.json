@@ -15,6 +15,7 @@
     "moduleDetection": "force",
     "noEmit": true,
     "jsx": "react-jsx",
+
     // "jsx": "react"
 
     /* Linting */
@@ -26,7 +27,8 @@
     //custom
     /* Added settings for default import handling */
     "esModuleInterop": true,  // Ensures compatibility for default imports from CommonJS modules like React
-    "allowSyntheticDefaultImports": true  // Allows using default import syntax: `import React from 'react'`
+    "allowSyntheticDefaultImports": true,  // Allows using default import syntax: `import React from 'react'`
+    "module": "commonjs" 
  
     
   },
