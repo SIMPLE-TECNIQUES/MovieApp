@@ -36,7 +36,9 @@ const error = useSelector((state: RootState) => state.movies.error);
         if (data.Response === 'True') {
           dispatch(setSearchResults(data.Search));
         } else {
+          if(data.Error!==undefined)
           dispatch(setError(data.Error));
+        
         }
       } catch (err) {
         dispatch(setError((err as Error).message)); 
@@ -54,7 +56,8 @@ const error = useSelector((state: RootState) => state.movies.error);
       if (data.Response === 'True') {
         dispatch(setSearchResults(data.Search));
       } else {
-        dispatch(setError(data.Error));
+        if(data.Error!==undefined)
+          dispatch(setError(data.Error));
       }
     } catch (err) {
       dispatch(setError((err as Error).message)); 
@@ -71,7 +74,8 @@ const error = useSelector((state: RootState) => state.movies.error);
       if (data.Response === 'True') {
         dispatch(setSearchResults(data.Search));
       } else {
-        dispatch(setError(data.Error));
+        if(data.Error!==undefined)
+          dispatch(setError(data.Error));
       }
     } catch (err) {
       dispatch(setError((err as Error).message)); 
