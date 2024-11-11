@@ -23,7 +23,9 @@ const Home: React.FC = () => {
   const dispatch = useDispatch();
   
  
-  const { searchResults, error } = useSelector((state: RootState) => state.movies); 
+  // const { searchResults, error } = useSelector((state: RootState) => state.movies); 
+  const searchResults = useSelector((state: RootState) => state.movies.searchResults);
+const error = useSelector((state: RootState) => state.movies.error);
 
   const [genre, setGenre] = useState<string>('');
 
