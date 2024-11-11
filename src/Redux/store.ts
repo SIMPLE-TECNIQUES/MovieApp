@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import movieReducer from './movieSlice';
+import movieReducer from './MovieSlice';
 
 export interface Movie {
   imdbID: string;
@@ -9,11 +9,11 @@ export interface Movie {
   Poster: string;
 }
 
-interface MovieState {
-  searchResults: Movie[];
-  favorites: Movie[];
-  error: string;
-}
+// interface MovieState {
+//   searchResults: Movie[];
+//   favorites: Movie[];
+//   error: string;
+// }
 
 const store = configureStore({
   reducer: {
