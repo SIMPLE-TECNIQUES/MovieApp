@@ -2,7 +2,7 @@ import axios from 'axios';
 import { Movie } from './MovieSlice'; 
 
 
-const API_KEY = '9e0c3988';
+const API_KEY = 'a4da9bb3';
 
 interface MovieSearchResponse {
   Search: Movie[];
