@@ -27,7 +27,7 @@ const Home: React.FC = () => {
   const searchResults = useSelector((state: RootState) => state.movies.searchResults);
 const error = useSelector((state: RootState) => state.movies.error);
 
-  const [genre, setGenre] = useState<string>('');
+  // const [genre, setGenre] = useState<string>('');
 
   useEffect(() => {
     const initialSearch = async () => {
@@ -47,7 +47,7 @@ const error = useSelector((state: RootState) => state.movies.error);
   }, [type, dispatch]);
 
   const handleGenreClick = async (genre: string) => { 
-    setGenre(genre || 'default');
+    // setGenre(genre || 'default');
     setCurrentPage(1);
     try {
       const data = await searchMovies(genre, type);
