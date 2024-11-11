@@ -47,7 +47,7 @@ const error = useSelector((state: RootState) => state.movies.error);
   }, [type, dispatch]);
 
   const handleGenreClick = async (genre: string) => { 
-    setGenre(genre);
+    setGenre(genre || 'default');
     setCurrentPage(1);
     try {
       const data = await searchMovies(genre, type);
