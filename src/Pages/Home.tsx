@@ -32,7 +32,7 @@ const error = useSelector((state: RootState) => state.movies.error);
   useEffect(() => {
     const initialSearch = async () => {
       try {
-        const data = await searchMovies('Spider', type);
+        const data = await searchMovies('Spider', type || '');
         if (data.Response === 'True') {
           dispatch(setSearchResults(data.Search));
         } else {
@@ -50,7 +50,7 @@ const error = useSelector((state: RootState) => state.movies.error);
     // setGenre(genre || 'default');
     setCurrentPage(1);
     try {
-      const data = await searchMovies(genre, type);
+      const data = await searchMovies(genre, type||'');
       if (data.Response === 'True') {
         dispatch(setSearchResults(data.Search));
       } else {
@@ -67,7 +67,7 @@ const error = useSelector((state: RootState) => state.movies.error);
     }
     setCurrentPage(1);
     try {
-      const data = await searchMovies(query, type);
+      const data = await searchMovies(query, type||'');
       if (data.Response === 'True') {
         dispatch(setSearchResults(data.Search));
       } else {
