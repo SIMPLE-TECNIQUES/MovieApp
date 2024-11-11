@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToFavorites, removeFromFavorites } from '../Redux/MovieSlice';
 import { Link } from 'react-router-dom';
+import { FaHeart, FaRegHeart } from 'react-icons/fa';
 
 interface Movie {
   imdbID: string;
@@ -29,19 +30,26 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md min-w-72 max-w-72 transition-transform transform z-10 hover:scale-105">
-      <Link to={`/movie/${movie.imdbID}`}> 
-        <img src={movie.Poster} alt={movie.Title} className="w-full h-64 object-cover object-top" />
-        <div className="p-4">
-          <h3 className="text-lg font-semibold">{movie.Title}</h3>
-          <p className="text-gray-600">{movie.Year}</p>
-          <p>{movie.Type}</p>
+    <div className="relative bg-gray-100 rounded-lg shadow-lg hover:shadow-xl transition-transform transform hover:scale-105 overflow-hidden max-w-xs w-72 m-4 border border-gray-300">
+      <Link to={`/movie/${movie.imdbID}`} className="block">
+        <div className="flex justify-center bg-gray-200 p-4 rounded-t-lg">
+          <img 
+            src={movie.Poster} 
+            alt={movie.Title} 
+            className="object-contain w-60 h-60 rounded-lg transition-transform hover:scale-110"
+          />
+        </div>
+        <div className="p-4 min-h-[5rem] bg-white"> {/* Text container with a consistent background */}
+          <h3 className="text-xl font-semibold text-gray-800 text-center">{movie.Title}</h3>
         </div>
       </Link>
       <button
         onClick={handleFavoriteToggle}
-        className={`mb-2 mx-4 px-3 py-1 rounded-md text-white ${isFavorite ? 'bg-red-500' : 'bg-blue-500'} transition duration-200`} 
+        className={`flex items-center justify-center w-full py-2 text-sm font-medium transition-all ${
+          isFavorite ? 'bg-red-500 hover:bg-red-600' : 'bg-blue-500 hover:bg-blue-600'
+        } text-white rounded-b-lg`}
       >
+        {isFavorite ? <FaHeart className="mr-2" /> : <FaRegHeart className="mr-2" />}
         {isFavorite ? 'Remove from Favorites' : 'Add to Favorites'}
       </button>
     </div>

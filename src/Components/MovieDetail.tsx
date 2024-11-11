@@ -18,7 +18,7 @@ interface Movie {
   Actors: string;
   Poster: string;
   Ratings: Rating[];
-  Type: string;//new change
+  Type: string;
 }
 
 const MovieDetail: React.FC = () => {
@@ -27,7 +27,6 @@ const MovieDetail: React.FC = () => {
   const favorites = useSelector((state: any) => state.movies.favorites);
   const [movie, setMovie] = useState<Movie | null>(null);
   const [error, setError] = useState<string>('');
-  const [isSticky, setIsSticky] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
@@ -44,18 +43,6 @@ const MovieDetail: React.FC = () => {
     fetchMovieDetails();
   }, [id]);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const stickyPoint = 200;
-      setIsSticky(window.scrollY > stickyPoint);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-
   const handleFavoriteToggle = () => {
     if (movie && favorites.find((m: Movie) => m.imdbID === movie.imdbID)) {
       dispatch(removeFromFavorites(movie.imdbID));
@@ -68,39 +55,47 @@ const MovieDetail: React.FC = () => {
   if (!movie) return <div className="text-center mt-4">Loading...</div>;
 
   return (
-    <div className="bg-black py-2 md:pb-40 pt-1">
-      <div className="movie-detail relative lg:flex lg:justify-center gap-4 text-white container mx-auto p-4 mt-48 sm:mt-32 md:mt-20 mb-14">
-        <img 
-          src={movie.Poster}
-          alt={movie.Title}
-          className={`object-contain sticky top-48 md:sticky md:top-20 lg:w-full xl:w-[55%] w-full sm:w-[80%] z-10 rounded-lg shadow-md transition-opacity duration-500 ${isSticky ? 'opacity-20' : 'opacity-100'}`} 
-        />
-        <div className="relative z-40 mt-4 pb-16 md:pb-32">
-          <h1 className="text-3xl font-bold">{movie.Title}</h1>
-          <p className="">{movie.Year} | {movie.Genre}</p>
-          <p className="mt-2">{movie.Plot}</p>
-
-          <button
-            onClick={handleFavoriteToggle}
-            className={`mt-4 px-4 py-2 rounded-md text-white 
-                       ${favorites.find((m: Movie) => m.imdbID === movie.imdbID) ? 'bg-red-500' : 'bg-blue-500'} 
-                       hover:bg-opacity-80 transition duration-200`}
-          >
-            {favorites.find((m: Movie) => m.imdbID === movie.imdbID) ? 'Remove from Favorites' : 'Add to Favorites'}
-          </button>
-
-          <div className="mt-4">
-            <h3 className="text-xl font-semibold">Ratings:</h3>
-            <ul className="list-disc list-inside">
-              {movie.Ratings.map((rating) => (
-                <li key={rating.Source}>{rating.Source}: {rating.Value}</li>
-              ))}
-            </ul>
+    <div className="flex justify-center items-center min-h-screen bg-gray-900 py-8">
+      <div className="bg-gray-800 text-white rounded-2xl shadow-lg p-8 w-full max-w-5xl mx-4 lg:mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="flex justify-center">
+            <img
+              src={movie.Poster}
+              alt={movie.Title}
+              className="w-72 h-auto rounded-lg shadow-md object-cover"
+            />
           </div>
+          <div className="col-span-2">
+            <h1 className="text-4xl font-bold mb-2">{movie.Title}</h1>
+            <p className="text-lg text-gray-400 mb-4">{movie.Year} | {movie.Genre}</p>
+            <p className="text-base mb-6">{movie.Plot}</p>
 
-          <div className="mt-4">
-            <h3 className="text-xl font-semibold">Cast:</h3>
-            <p>{movie.Actors}</p>
+            <button
+              onClick={handleFavoriteToggle}
+              className={`px-4 py-2 mb-6 rounded-md text-white font-semibold transition-all duration-200 ${
+                favorites.find((m: Movie) => m.imdbID === movie.imdbID)
+                  ? 'bg-red-500 hover:bg-red-600'
+                  : 'bg-blue-500 hover:bg-blue-600'
+              }`}
+            >
+              {favorites.find((m: Movie) => m.imdbID === movie.imdbID)
+                ? 'Remove from Favorites'
+                : 'Add to Favorites'}
+            </button>
+
+            <div className="mb-4">
+              <h3 className="text-xl font-semibold mb-2">Ratings:</h3>
+              <ul className="list-disc list-inside text-gray-300">
+                {movie.Ratings.map((rating) => (
+                  <li key={rating.Source}>{rating.Source}: {rating.Value}</li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-xl font-semibold mb-2">Cast:</h3>
+              <p className="text-gray-300 break-words">{movie.Actors}</p>
+            </div>
           </div>
         </div>
       </div>
